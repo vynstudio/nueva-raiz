@@ -1,26 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg: #FFFFFF;
+  --bg-soft: #FAFAF9;
+  --ink: #0A0A0A;
+  --ink-soft: #2A2A2A;
+  --muted: #6B6B6B;
+  --line: #E0DCD4;
+  --red: #C8442A;
+  --red-bright: #E55A3D;
+  --red-soft: #FBE6E0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+input, textarea, button {
+  font-family: inherit;
 }

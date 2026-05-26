@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Toro Mudanzas
 
-## Getting Started
+Landing page independiente y 100% en español para el nicho hispano de Florida Central.
 
-First, run the development server:
+**Dominio objetivo:** toromudanzas.com
 
+## Stack
+- Next.js 16 (App Router) + TypeScript + Tailwind
+- Formulario multi-paso de cotización (sin dependencias externas pesadas)
+- Desplegable en Netlify
+
+## Desarrollo local
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de entorno (opcional)
+- `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` — para autocompletado de direcciones inteligente (Mapbox). Si no la pones, el campo de dirección funciona normalmente con autofill del navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Despliegue
+Recomendado: Netlify (igual que toromovers).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Conecta el repo a Netlify.
+2. Build command: `npm run build`
+3. Publish directory: `.next`
 
-## Learn More
+Una vez desplegado, apunta **toromudanzas.com** al sitio de Netlify.
 
-To learn more about Next.js, take a look at the following resources:
+## Notas importantes
+- Este proyecto es **totalmente separado** de toromovers.net.
+- El teléfono actual es (689) 600-2720 (mismo equipo operativo).
+- El endpoint `/api/booking` es un stub. Cuando quieras, podemos conectar Resend + notificación al inbox.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Próximos pasos recomendados
+- Añadir logo real de Toro Mudanzas
+- Conectar emails de cotización (Resend)
+- Añadir Meta Pixel + Conversions API cuando estés listo para ads
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Creado como proyecto independiente para pruebas de Meta Ads en el nicho hispanohablante.
