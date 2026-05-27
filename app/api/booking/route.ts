@@ -85,7 +85,7 @@ export async function POST(req: Request) {
 
     // Send SMS confirmation via OpenPhone (if configured)
     if (phone) {
-      const smsMessage = `Hola ${firstName}, recibimos tu solicitud de mudanza con Toro Mudanzas. Te contactaremos pronto al (689) 600-2720.`;
+      const smsMessage = `Hola ${firstName}, recibimos tu solicitud de cotización con Toro Mudanzas. Te responderemos hoy con el precio. Urgente: (689) 600-2720. Gracias!`;
       sendOpenPhoneSms(phone, smsMessage);
     }
 
