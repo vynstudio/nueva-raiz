@@ -115,7 +115,7 @@ export default function ToroMudanzasLanding() {
 
       {/* Hero with Background Image */}
       <section 
-        className="relative min-h-[620px] md:min-h-[680px] flex items-center justify-center text-white"
+        className="relative min-h-[620px] md:min-h-[680px] flex items-end justify-center text-white"
         style={{
           backgroundImage: "url('/hero-family.jpg')",
           backgroundSize: 'cover',
@@ -125,7 +125,7 @@ export default function ToroMudanzasLanding() {
         {/* Stronger gradient overlay for better readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/60 to-black/80" />
 
-        <div className="relative z-10 max-w-4xl px-5 text-center pt-8 pb-12">
+        <div className="relative z-10 max-w-4xl px-5 text-center pb-16">
           <div className="inline-flex items-center gap-2 bg-white/95 text-[#0A0A0A] px-4 py-1.5 rounded-full text-xs tracking-[1.5px] font-semibold mb-5 shadow-sm">
             COMPAÑÍA HISPANA · 100% EN ESPAÑOL
           </div>
