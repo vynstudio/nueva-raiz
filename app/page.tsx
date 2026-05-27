@@ -115,7 +115,7 @@ export default function ToroMudanzasLanding() {
 
       {/* Hero with Background Image */}
       <section 
-        className="relative min-h-[620px] md:min-h-[680px] flex items-end justify-center text-white"
+        className="relative min-h-[620px] md:min-h-[700px] lg:min-h-[750px] flex items-end justify-center text-white"
         style={{
           backgroundImage: "url('/hero-family.jpg')",
           backgroundSize: 'cover',
@@ -125,25 +125,25 @@ export default function ToroMudanzasLanding() {
         {/* Stronger gradient overlay for better readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/60 to-black/80" />
 
-        <div className="relative z-10 max-w-4xl px-5 text-center pb-24 md:pb-28">
+        <div className="relative z-10 max-w-5xl px-5 text-center pb-20 md:pb-24 lg:pb-28">
           <div className="inline-flex items-center gap-2 bg-white/95 text-[#0A0A0A] px-4 py-1.5 rounded-full text-xs tracking-[1.5px] font-semibold mb-5 shadow-sm">
             COMPAÑÍA HISPANA · 100% EN ESPAÑOL
           </div>
 
-          <h1 className="text-4xl sm:text-5xl leading-[1.1] tracking-[-1.5px] font-semibold mb-5 [text-shadow:_0_2px_12px_rgb(0,0,0,0.45)]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-[-1.6px] font-semibold mb-5 [text-shadow:_0_2px_12px_rgb(0,0,0,0.45)]">
             Compañía de Mudanzas en Florida Central
           </h1>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={() => document.getElementById("cotiza")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-[#C8442A] hover:bg-[#E55A3D] transition-all text-white text-lg font-semibold px-9 py-4 rounded-md shadow-lg"
+              className="bg-[#C8442A] hover:bg-[#E55A3D] transition-all text-white text-lg font-semibold px-8 py-4 rounded-md shadow-lg min-h-[52px]"
             >
               Cotización gratis en 60 segundos
             </button>
             <a 
               href={PHONE_TEL} 
-              className="border-2 border-white/90 hover:bg-white hover:text-[#0A0A0A] transition-all text-white text-lg font-semibold px-9 py-4 rounded-md"
+              className="border-2 border-white/90 hover:bg-white hover:text-[#0A0A0A] transition-all text-white text-lg font-semibold px-8 py-4 rounded-md min-h-[52px]"
             >
               Llamar {PHONE_DISPLAY}
             </a>
@@ -168,13 +168,13 @@ export default function ToroMudanzasLanding() {
       </div>
 
       {/* Por qué las familias hispanas nos eligen */}
-      <section className="max-w-5xl mx-auto px-5 py-14">
+      <section className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
         <div className="text-center mb-10">
           <div className="uppercase tracking-[2px] text-xs font-semibold text-[#C8442A] mb-3">LA DIFERENCIA REAL</div>
           <h2 className="text-4xl tracking-[-1px] font-semibold">Hablamos español de verdad.<br />No solo en la cotización.</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 text-[15px]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-[15px]">
           {[
             { title: "Toda la comunicación en español", text: "Cotizamos, agendamos y ejecutamos tu mudanza completa en español. Sin traductores, sin confusiones, sin estrés." },
             { title: "Entendemos a las familias hispanas", text: "Sabemos lo que significa mudarse con abuelos, niños, y pertenencias que tienen historia. Tratamos cada hogar con respeto." },
@@ -189,13 +189,13 @@ export default function ToroMudanzasLanding() {
       </section>
 
       {/* Trust with Images + Reviews */}
-      <section className="max-w-6xl mx-auto px-5 py-14 bg-[#FAFAF9]">
+      <section className="max-w-7xl mx-auto px-5 py-16 lg:py-20 bg-[#FAFAF9]">
         <div className="text-center mb-10">
           <div className="uppercase tracking-[2px] text-xs font-semibold text-[#C8442A] mb-3">LA CONFIANZA DE NUESTRA GENTE</div>
           <h2 className="text-4xl tracking-[-1px] font-semibold">Lo que dicen las familias hispanas<br />que ya se mudaron con nosotros</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               photo: "https://picsum.photos/id/1011/120/120",
@@ -243,14 +243,14 @@ export default function ToroMudanzasLanding() {
       </section>
 
       {/* Cómo funciona */}
-      <section className="bg-[#FAFAF9] border-y border-[#E0DCD4] py-14">
+      <section className="bg-[#FAFAF9] border-y border-[#E0DCD4] py-16 lg:py-20">
         <div className="max-w-5xl mx-auto px-5">
           <div className="text-center mb-10">
             <div className="uppercase tracking-[2px] text-xs font-semibold text-[#C8442A] mb-3">PROCESO SIMPLE</div>
             <h2 className="text-4xl tracking-[-1px] font-semibold">Tres pasos. Sin complicaciones.</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { num: "01", title: "Cotiza en 60 segundos", text: "Dinos de dónde a dónde, qué tipo de ayuda necesitas y la fecha. Te respondemos con precio por escrito el mismo día." },
               { num: "02", title: "Reserva tu día", text: "Un pequeño depósito reembolsable asegura tu fecha. La misma cuadrilla que te cotizó llega el día de la mudanza." },
@@ -273,7 +273,7 @@ export default function ToroMudanzasLanding() {
           <h2 className="text-4xl tracking-[-1px] font-semibold">Tres formas de moverte.<br />Precios claros en las tres.</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             { title: "Solo mano de obra", desc: "Tienes camión, U-Haul o PODS. Nosotros ponemos la cuadrilla fuerte y experimentada.", bullets: ["2 mudanceros mínimo", "Mantas, carretillas y envoltura", "Carga o descarga", "Tarifa por hora clara"] },
             { title: "Mudanza completa", desc: "Camión + cuadrilla. La opción más solicitada para apartamentos y casas en Florida Central.", bullets: ["Camión de 16' o 26' incluido", "2 mudanceros", "Envoltura completa de muebles", "Misma cuadrilla todo el proceso"], featured: true },
@@ -292,7 +292,7 @@ export default function ToroMudanzasLanding() {
       </section>
 
       {/* Formulario de cotización completo */}
-      <section id="cotiza" className="bg-[#0A0A0A] text-white py-14">
+      <section id="cotiza" className="bg-[#0A0A0A] text-white py-16 lg:py-20">
         <div className="max-w-3xl mx-auto px-5">
           <div className="text-center mb-8">
             <div className="uppercase tracking-[2px] text-xs font-semibold text-[#E55A3D] mb-3">COTIZACIÓN GRATIS</div>
