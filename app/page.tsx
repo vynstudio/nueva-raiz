@@ -103,15 +103,21 @@ export default function ToroMudanzasLanding() {
     // Full validation before sending lead
     const parsed = QuoteSchema.safeParse(form);
     if (!parsed.success) {
-      // Give more specific feedback based on missing fields
       const errors = parsed.error.flatten().fieldErrors;
-      if (errors.date) {
-        setFormError("Falta seleccionar la fecha de la mudanza.");
-      } else if (errors.fromAddress || errors.toAddress) {
-        setFormError("Revisa las direcciones de origen y destino.");
-      } else {
-        setFormError("Por favor completa todos los campos obligatorios.");
-      }
+      const missing: string[] = [];
+
+      if (errors.date) missing.push("la fecha");
+      if (errors.fromAddress) missing.push("la dirección de origen");
+      if (errors.toAddress) missing.push("la dirección de destino");
+      if (errors.firstName || errors.lastName) missing.push("tu nombre completo");
+      if (errors.email) missing.push("un email válido");
+      if (errors.phone) missing.push("tu teléfono");
+
+      const message = missing.length > 0 
+        ? `Falta: ${missing.join(", ")}.`
+        : "Por favor completa todos los campos obligatorios.";
+
+      setFormError(message);
       return;
     }
 
@@ -547,6 +553,16 @@ export default function ToroMudanzasLanding() {
             {step === 5 && (
               <div>
                 <div className="font-semibold text-xl mb-5">¿A dónde te enviamos la cotización?</div>
+
+                {/* Simple summary so the user can review before submitting */}
+                <div className="bg-[#F8F8F8] border border-[#E0DCD4] rounded-lg p-4 mb-6 text-sm">
+                  <div className="font-medium mb-2 text-[#333]">Resumen de tu mudanza:</div>
+                  <div><strong>Servicio:</strong> {HELP_LABEL[form.helpType]}</div>
+                  <div><strong>Desde:</strong> {form.fromAddress || "—"}</div>
+                  <div><strong>Hacia:</strong> {form.toAddress || "—"}</div>
+                  <div><strong>Fecha:</strong> {form.date || "—"}</div>
+                  {form.specialItems && <div><strong>Detalles:</strong> {form.specialItems}</div>}
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="text-sm text-[#6B6B6B] block mb-1.5">Nombre</label>
