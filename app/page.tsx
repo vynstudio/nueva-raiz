@@ -63,6 +63,30 @@ export default function ToroMudanzasLanding() {
     }
 
     setSubmitting(true);
+
+    // Track conversion events
+    if (typeof window !== "undefined") {
+      // Meta Pixel - Lead event (critical for Meta Ads)
+      if (window.fbq) {
+        window.fbq("track", "Lead", {
+          content_name: "Cotización de Mudanza",
+          content_category: form.helpType,
+          value: 1,
+          currency: "USD",
+        });
+      }
+
+      // GA4 - Generate Lead event
+      if (window.gtag) {
+        window.gtag("event", "generate_lead", {
+          currency: "USD",
+          value: 1,
+          method: "form",
+          help_type: form.helpType,
+        });
+      }
+    }
+
     try {
       await fetch("/api/booking", {
         method: "POST",
@@ -70,8 +94,9 @@ export default function ToroMudanzasLanding() {
         body: JSON.stringify(form),
       });
     } catch {
-      /* stub */
+      /* stub - replace with real backend */
     }
+
     setSubmitting(false);
     setSubmitted(true);
   };
