@@ -78,9 +78,58 @@ export async function POST(req: Request) {
       `,
     });
 
+    // Always try to notify via Telegram (very reliable for instant alerts)
+    sendToTelegram(body);
+
     return NextResponse.json({ ok: true, emailSent: true });
   } catch (error) {
     console.error("Error enviando emails con Resend:", error);
+    // Still try to notify via Telegram even if email failed
+    sendToTelegram(body);
     return NextResponse.json({ ok: true, emailSent: false });
+  }
+}
+
+// Send notification to Telegram (if configured)
+async function sendToTelegram(data: any) {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!botToken || !chatId) {
+    console.log("⚠️ Telegram not configured (TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID)");
+    return;
+  }
+
+  const nombreCompleto = `${data.firstName} ${data.lastName}`.trim();
+
+  const message = `
+🆕 *Nueva Cotización - Toro Mudanzas*
+
+👤 *Cliente:* ${nombreCompleto}
+📞 *Tel:* ${data.phone}
+✉️ *Email:* ${data.email}
+
+🚚 *Servicio:* ${data.helpType}
+📍 *Desde:* ${data.fromAddress}
+📍 *Hacia:* ${data.toAddress}
+📅 *Fecha:* ${data.date || "No especificada"}
+
+${data.specialItems ? `📝 *Detalles:* ${data.specialItems}` : ""}
+
+🌐 Ver en panel o responder rápido.
+  `.trim();
+
+  try {
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: "Markdown",
+      }),
+    });
+  } catch (err) {
+    console.error("Error sending to Telegram:", err);
   }
 }

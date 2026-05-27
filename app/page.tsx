@@ -100,25 +100,18 @@ export default function ToroMudanzasLanding() {
   };
 
   const handleSubmit = async () => {
-    // Specific validation for step 5 (contact info)
-    if (step === 5) {
-      if (!form.firstName.trim() || !form.lastName.trim()) {
-        setFormError("Por favor ingresa tu nombre y apellido.");
-        return;
-      }
-      if (!form.email.trim() || !form.email.includes("@")) {
-        setFormError("Por favor ingresa un email válido.");
-        return;
-      }
-      if (!form.phone.trim() || form.phone.trim().length < 7) {
-        setFormError("Por favor ingresa un teléfono válido.");
-        return;
-      }
-    }
-
+    // Full validation before sending lead
     const parsed = QuoteSchema.safeParse(form);
     if (!parsed.success) {
-      setFormError("Por favor completa todos los campos obligatorios (incluyendo fecha y direcciones).");
+      // Give more specific feedback based on missing fields
+      const errors = parsed.error.flatten().fieldErrors;
+      if (errors.date) {
+        setFormError("Falta seleccionar la fecha de la mudanza.");
+      } else if (errors.fromAddress || errors.toAddress) {
+        setFormError("Revisa las direcciones de origen y destino.");
+      } else {
+        setFormError("Por favor completa todos los campos obligatorios.");
+      }
       return;
     }
 
