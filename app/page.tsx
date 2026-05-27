@@ -483,7 +483,8 @@ export default function ToroMudanzasLanding() {
 
       <footer className="text-center text-xs text-[#6B6B6B] py-8 border-t">
         Toro Mudanzas · Florida Central · (689) 600-2720<br />
-        Asegurados · Cuadrilla bilingüe · Precios claros
+        Asegurados · Cuadrilla bilingüe · Precios claros<br />
+        <a href="/privacidad" className="underline hover:text-[#C8442A]">Política de Privacidad</a>
       </footer>
     </div>
   );
