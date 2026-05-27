@@ -60,10 +60,36 @@ export default function ToroMudanzasLanding() {
     }
   };
 
+  // Validación por paso para mejorar la experiencia del usuario
+  const validateCurrentStep = (): string | null => {
+    if (step === 2) {
+      if (!form.fromAddress || form.fromAddress.trim().length < 3) {
+        return "Por favor ingresa una dirección de origen válida.";
+      }
+    }
+    if (step === 3) {
+      if (!form.toAddress || form.toAddress.trim().length < 3) {
+        return "Por favor ingresa una dirección de destino válida.";
+      }
+    }
+    if (step === 4) {
+      if (!form.date) {
+        return "Por favor selecciona una fecha para tu mudanza.";
+      }
+    }
+    return null;
+  };
+
   const next = () => {
+    const error = validateCurrentStep();
+    if (error) {
+      setFormError(error);
+      return;
+    }
     setFormError(null);
     setStep((s) => Math.min(s + 1, 5));
   };
+
   const back = () => {
     setFormError(null);
     setStep((s) => Math.max(s - 1, 1));
@@ -419,6 +445,12 @@ export default function ToroMudanzasLanding() {
                   <button onClick={back} className="flex-1 border py-4 rounded-md font-semibold">Atrás</button>
                   <button onClick={next} className="flex-1 bg-[#C8442A] text-white py-4 rounded-md font-semibold">Continuar</button>
                 </div>
+
+                {formError && (
+                  <p className="mt-4 text-center text-sm text-red-400 font-medium">
+                    {formError}
+                  </p>
+                )}
               </div>
             )}
 
@@ -456,6 +488,12 @@ export default function ToroMudanzasLanding() {
                   <button onClick={back} className="flex-1 border py-4 rounded-md font-semibold">Atrás</button>
                   <button onClick={next} className="flex-1 bg-[#C8442A] text-white py-4 rounded-md font-semibold">Continuar</button>
                 </div>
+
+                {formError && (
+                  <p className="mt-4 text-center text-sm text-red-400 font-medium">
+                    {formError}
+                  </p>
+                )}
               </div>
             )}
 
@@ -475,6 +513,12 @@ export default function ToroMudanzasLanding() {
                   <button onClick={back} className="flex-1 border py-4 rounded-md font-semibold">Atrás</button>
                   <button onClick={next} className="flex-1 bg-[#C8442A] text-white py-4 rounded-md font-semibold">Continuar</button>
                 </div>
+
+                {formError && (
+                  <p className="mt-4 text-center text-sm text-red-400 font-medium">
+                    {formError}
+                  </p>
+                )}
               </div>
             )}
 
