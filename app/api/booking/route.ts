@@ -31,8 +31,9 @@ export async function POST(req: Request) {
   try {
     // Email al cliente
     await resend.emails.send({
-      from: "Toro Mudanzas <cotizaciones@toromudanzas.com>",
+      from: "Toro Mudanzas <hola@toromudanzas.com>", // Usa un dominio verificado en Resend
       to: email,
+      replyTo: "hola@toromudanzas.com",
       subject: "Recibimos tu solicitud de cotización",
       html: `
         <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -64,6 +65,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Toro Mudanzas <notificaciones@toromudanzas.com>",
       to: "hello@toromudanzas.net", // Cambiar por el email real del dueño
+      replyTo: email,
       subject: `Nueva cotización de ${nombreCompleto}`,
       html: `
         <h3>Nueva solicitud de cotización</h3>

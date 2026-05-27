@@ -160,25 +160,33 @@ export default function ToroMudanzasLanding() {
       <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="max-w-md text-center">
           <div className="text-5xl mb-6">✓</div>
-          <h1 className="text-3xl font-semibold tracking-tight mb-4">Recibimos tu solicitud.</h1>
-          <p className="text-lg text-[#2A2A2A] mb-8">
-            Te enviaremos una cotización por escrito el mismo día. Para algo urgente, llámanos ahora.
+          <h1 className="text-3xl font-semibold tracking-tight mb-3">¡Recibimos tu solicitud!</h1>
+          
+          <p className="text-lg text-[#2A2A2A] mb-6">
+            Te enviaremos una cotización por escrito <strong>el mismo día</strong>.
           </p>
-          <a 
-            href={PHONE_TEL} 
-            onClick={() => {
-              if (typeof window !== "undefined" && window.gtag) {
-                window.gtag("event", "contact", { method: "phone", location: "success_page" });
-              }
-              if (typeof window !== "undefined" && window.fbq) {
-                window.fbq("track", "Contact", { method: "phone" });
-              }
-            }}
-            className="inline-flex items-center justify-center bg-[#C8442A] text-white px-8 py-4 rounded-md text-lg font-semibold"
-          >
-            Llamar {PHONE_DISPLAY}
-          </a>
-          <p className="mt-6 text-sm text-[#6B6B6B]">Toro Mudanzas — Florida Central</p>
+
+          <div className="bg-[#FBE6E0] border border-[#C8442A] rounded-xl p-6 mb-6">
+            <p className="text-sm text-[#C8442A] font-semibold mb-2">¿Quieres que te llamemos ya?</p>
+            <a 
+              href={PHONE_TEL} 
+              onClick={() => {
+                if (typeof window !== "undefined" && window.gtag) {
+                  window.gtag("event", "contact", { method: "phone", location: "success_page" });
+                }
+                if (typeof window !== "undefined" && window.fbq) {
+                  window.fbq("track", "Contact", { method: "phone" });
+                }
+              }}
+              className="inline-flex items-center justify-center bg-[#C8442A] hover:bg-[#E55A3D] transition text-white text-2xl font-bold px-10 py-4 rounded-lg w-full"
+            >
+              Llamar {PHONE_DISPLAY}
+            </a>
+          </div>
+
+          <p className="text-sm text-[#6B6B6B]">
+            O si prefieres, espera nuestro mensaje con la cotización.
+          </p>
         </div>
       </div>
     );
