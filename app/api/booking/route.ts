@@ -83,10 +83,15 @@ export async function POST(req: Request) {
     // Notifications (non-blocking)
     sendToTelegram(body);
 
+    // Send SMS confirmation via OpenPhone (if configured)
+    if (phone) {
+      const smsMessage = `Hola ${firstName}, recibimos tu solicitud de mudanza con Toro Mudanzas. Te contactaremos pronto al (689) 600-2720.`;
+      sendOpenPhoneSms(phone, smsMessage);
+    }
+
     return NextResponse.json({ ok: true, emailSent: true });
   } catch (error) {
     console.error("Error enviando emails con Resend:", error);
-    // Still try to notify via Telegram even if email failed
     sendToTelegram(body);
     return NextResponse.json({ ok: true, emailSent: false });
   }
@@ -133,5 +138,38 @@ ${data.specialItems ? `📝 *Detalles:* ${data.specialItems}` : ""}
     });
   } catch (err) {
     console.error("Error sending to Telegram:", err);
+  }
+}
+
+// Send SMS confirmation via OpenPhone
+async function sendOpenPhoneSms(to: string, message: string) {
+  const apiKey = process.env.OPENPHONE_API_KEY;
+  const fromNumberId = process.env.OPENPHONE_FROM_NUMBER_ID; // This is the Phone Number ID from OpenPhone, not the raw number
+
+  if (!apiKey || !fromNumberId) {
+    console.log("⚠️ OpenPhone not configured (OPENPHONE_API_KEY or OPENPHONE_FROM_NUMBER_ID missing)");
+    return;
+  }
+
+  try {
+    const res = await fetch("https://api.openphone.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromNumberId,
+        to: [to],
+        content: message,
+      }),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "");
+      console.error("OpenPhone SMS failed:", res.status, errorText);
+    }
+  } catch (err) {
+    console.error("Error sending SMS via OpenPhone:", err);
   }
 }
