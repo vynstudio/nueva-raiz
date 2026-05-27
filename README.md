@@ -50,6 +50,10 @@ El proyecto ya incluye un `netlify.toml` con la configuración recomendada para 
 - `RESEND_API_KEY`
 - `TELEGRAM_BOT_TOKEN` → Usa el **mismo** que ya tienes en toromovers.net
 - `TELEGRAM_CHAT_ID` → Usa el **mismo** que ya tienes en toromovers.net
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_FROM_PHONE` (número de Twilio que envía los SMS)
+- `TWILIO_TO_PHONE` (número donde quieres recibir los SMS de leads)
 
 ## Próximos pasos recomendados
 - Añadir logo real de Toro Mudanzas

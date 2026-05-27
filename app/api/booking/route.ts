@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import twilio from "twilio";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+const twilioClient = (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN)
+  ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+  : null;
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
@@ -80,14 +85,16 @@ export async function POST(req: Request) {
       `,
     });
 
-    // Always try to notify via Telegram (very reliable for instant alerts)
+    // Notifications (non-blocking)
     sendToTelegram(body);
+    sendSms(body);
 
     return NextResponse.json({ ok: true, emailSent: true });
   } catch (error) {
     console.error("Error enviando emails con Resend:", error);
-    // Still try to notify via Telegram even if email failed
+    // Still try to notify via other channels even if email failed
     sendToTelegram(body);
+    sendSms(body);
     return NextResponse.json({ ok: true, emailSent: false });
   }
 }
@@ -133,5 +140,42 @@ ${data.specialItems ? `📝 *Detalles:* ${data.specialItems}` : ""}
     });
   } catch (err) {
     console.error("Error sending to Telegram:", err);
+  }
+}
+
+// Send SMS via Twilio (if configured)
+async function sendSms(data: any) {
+  if (!twilioClient) {
+    console.log("⚠️ Twilio not configured (TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN)");
+    return;
+  }
+
+  const from = process.env.TWILIO_FROM_PHONE;
+  const to = process.env.TWILIO_TO_PHONE; // Número del equipo que recibe los leads
+
+  if (!from || !to) {
+    console.log("⚠️ TWILIO_FROM_PHONE or TWILIO_TO_PHONE missing — SMS skipped");
+    return;
+  }
+
+  const nombreCompleto = `${data.firstName} ${data.lastName}`.trim();
+
+  const message = `🆕 Nueva Cotización
+${nombreCompleto}
+Tel: ${data.phone}
+Servicio: ${data.helpType}
+Desde: ${data.fromAddress}
+Hacia: ${data.toAddress}
+Fecha: ${data.date || "No especificada"}
+${data.specialItems ? `Detalles: ${data.specialItems}` : ""}`;
+
+  try {
+    await twilioClient.messages.create({
+      body: message,
+      from,
+      to,
+    });
+  } catch (err) {
+    console.error("Error sending SMS via Twilio:", err);
   }
 }
