@@ -110,7 +110,18 @@ export default function ToroMudanzasLanding() {
           <p className="text-lg text-[#2A2A2A] mb-8">
             Te enviaremos una cotización por escrito el mismo día. Para algo urgente, llámanos ahora.
           </p>
-          <a href={PHONE_TEL} className="inline-flex items-center justify-center bg-[#C8442A] text-white px-8 py-4 rounded-md text-lg font-semibold">
+          <a 
+            href={PHONE_TEL} 
+            onClick={() => {
+              if (typeof window !== "undefined" && window.gtag) {
+                window.gtag("event", "contact", { method: "phone", location: "success_page" });
+              }
+              if (typeof window !== "undefined" && window.fbq) {
+                window.fbq("track", "Contact", { method: "phone" });
+              }
+            }}
+            className="inline-flex items-center justify-center bg-[#C8442A] text-white px-8 py-4 rounded-md text-lg font-semibold"
+          >
             Llamar {PHONE_DISPLAY}
           </a>
           <p className="mt-6 text-sm text-[#6B6B6B]">Toro Mudanzas — Florida Central</p>
@@ -132,7 +143,18 @@ export default function ToroMudanzasLanding() {
             </div>
           </div>
 
-          <a href={PHONE_TEL} className="flex items-center gap-2 text-sm font-semibold hover:text-[#C8442A] transition-colors">
+          <a 
+            href={PHONE_TEL} 
+            onClick={() => {
+              if (typeof window !== "undefined" && window.gtag) {
+                window.gtag("event", "contact", { method: "phone", location: "header" });
+              }
+              if (typeof window !== "undefined" && window.fbq) {
+                window.fbq("track", "Contact", { method: "phone" });
+              }
+            }}
+            className="flex items-center gap-2 text-sm font-semibold hover:text-[#C8442A] transition-colors"
+          >
             <span className="hidden sm:inline">Llamar ahora</span> {PHONE_DISPLAY}
           </a>
         </div>
@@ -168,6 +190,14 @@ export default function ToroMudanzasLanding() {
             </button>
             <a 
               href={PHONE_TEL} 
+              onClick={() => {
+                if (typeof window !== "undefined" && window.gtag) {
+                  window.gtag("event", "contact", { method: "phone", location: "hero" });
+                }
+                if (typeof window !== "undefined" && window.fbq) {
+                  window.fbq("track", "Contact", { method: "phone" });
+                }
+              }}
               className="border-2 border-white/90 hover:bg-white hover:text-[#0A0A0A] transition-all text-white text-lg font-semibold px-8 py-4 rounded-md min-h-[52px]"
             >
               Llamar {PHONE_DISPLAY}

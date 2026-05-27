@@ -1,8 +1,86 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
+
   console.log("[Toro Mudanzas] Nueva solicitud de cotización:", body);
-  // TODO: Wire Resend + notification when ready
-  return NextResponse.json({ ok: true });
+
+  // Si no hay Resend configurado, solo devolvemos OK (modo desarrollo)
+  if (!resend) {
+    console.log("⚠️ RESEND_API_KEY no está configurada. Email no enviado.");
+    return NextResponse.json({ ok: true, emailSent: false });
+  }
+
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    helpType,
+    fromAddress,
+    toAddress,
+    date,
+    specialItems,
+  } = body;
+
+  const nombreCompleto = `${firstName} ${lastName}`.trim();
+
+  try {
+    // Email al cliente
+    await resend.emails.send({
+      from: "Toro Mudanzas <cotizaciones@toromudanzas.com>",
+      to: email,
+      subject: "Recibimos tu solicitud de cotización",
+      html: `
+        <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #C8442A;">¡Gracias por contactarnos!</h2>
+          <p>Hola ${firstName},</p>
+          <p>Recibimos tu solicitud de cotización. Te responderemos con un precio por escrito <strong>el mismo día</strong>.</p>
+          
+          <p><strong>Resumen de tu solicitud:</strong></p>
+          <ul>
+            <li><strong>Tipo de servicio:</strong> ${helpType}</li>
+            <li><strong>Desde:</strong> ${fromAddress}</li>
+            <li><strong>Hacia:</strong> ${toAddress}</li>
+            <li><strong>Fecha preferida:</strong> ${date || "No especificada"}</li>
+            ${specialItems ? `<li><strong>Detalles especiales:</strong> ${specialItems}</li>` : ""}
+          </ul>
+
+          <p>Para algo urgente, llámanos directamente:</p>
+          <p><strong>(689) 600-2720</strong></p>
+
+          <p style="margin-top: 30px; font-size: 14px; color: #666;">
+            Toro Mudanzas — Florida Central<br>
+            Compañía de familia hispana • 100% en español
+          </p>
+        </div>
+      `,
+    });
+
+    // Email de notificación al equipo
+    await resend.emails.send({
+      from: "Toro Mudanzas <notificaciones@toromudanzas.com>",
+      to: "hello@toromudanzas.net", // Cambiar por el email real del dueño
+      subject: `Nueva cotización de ${nombreCompleto}`,
+      html: `
+        <h3>Nueva solicitud de cotización</h3>
+        <p><strong>Cliente:</strong> ${nombreCompleto}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Servicio:</strong> ${helpType}</p>
+        <p><strong>Desde:</strong> ${fromAddress}</p>
+        <p><strong>Hacia:</strong> ${toAddress}</p>
+        <p><strong>Fecha:</strong> ${date || "No especificada"}</p>
+        ${specialItems ? `<p><strong>Detalles:</strong> ${specialItems}</p>` : ""}
+      `,
+    });
+
+    return NextResponse.json({ ok: true, emailSent: true });
+  } catch (error) {
+    console.error("Error enviando emails con Resend:", error);
+    return NextResponse.json({ ok: true, emailSent: false });
+  }
 }

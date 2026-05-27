@@ -6,6 +6,7 @@ import { CookieBanner } from "../components/CookieBanner";
 export const metadata: Metadata = {
   title: "Compañía de Mudanzas en Florida Central | 100% en Español para la Comunidad Latina",
   description: "Compañía de mudanzas en Florida Central de familia hispana para la comunidad latina. Servicio 100% en español en Orlando, Kissimmee, Lake Nona, Clermont y toda Florida Central. Cotización en 60 segundos.",
+  metadataBase: new URL("https://toromudanzas.com"),
   icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Compañía de Mudanzas en Florida Central | 100% en Español",
