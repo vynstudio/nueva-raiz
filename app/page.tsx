@@ -127,17 +127,17 @@ export default function ToroMudanzasLanding() {
 
         <div className="relative z-10 max-w-4xl px-5 text-center pt-10 pb-16">
           <div className="inline-flex items-center gap-2 bg-white/95 text-[#0A0A0A] px-4 py-1.5 rounded-full text-xs tracking-[1.5px] font-semibold mb-6 shadow-sm">
-            CUADRILLA 100% BILINGÜE · ORLANDO Y FLORIDA CENTRAL
+            COMPAÑÍA HISPANA · 100% EN ESPAÑOL
           </div>
 
           <h1 className="text-5xl sm:text-[56px] leading-[1.05] tracking-[-1.8px] font-semibold mb-6 [text-shadow:_0_2px_12px_rgb(0,0,0,0.45)]">
-            Mudanzas en español.<br />
-            Precios claros.<br />
-            Sin complicaciones.
+            Compañía de Mudanzas en Florida Central<br />
+            De familia hispana para la comunidad latina<br />
+            100% en Español
           </h1>
 
           <p className="max-w-[640px] mx-auto text-lg sm:text-xl text-white/95 mb-8">
-            Compañía familiar sirviendo a familias hispanas en Orlando, Kissimmee, Lake Nona, Clermont, Winter Garden y toda Florida Central. Cotización en 60 segundos.
+            Mudanzas hispanas en Orlando, Kissimmee, Lake Nona, Clermont y toda Florida Central. Servicio completo y confiable para familias latinas.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

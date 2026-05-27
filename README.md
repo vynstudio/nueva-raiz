@@ -18,14 +18,28 @@ npm run dev
 ## Variables de entorno (opcional)
 - `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` — para autocompletado de direcciones inteligente (Mapbox). Si no la pones, el campo de dirección funciona normalmente con autofill del navegador.
 
-## Despliegue
-Recomendado: Netlify (igual que toromovers).
+## Despliegue en Netlify
 
-1. Conecta el repo a Netlify.
-2. Build command: `npm run build`
-3. Publish directory: `.next`
+Este proyecto está configurado para desplegarse en **Netlify** usando el plugin oficial de Next.js.
 
-Una vez desplegado, apunta **toromudanzas.com** al sitio de Netlify.
+### Pasos para desplegar:
+
+1. Ve a [Netlify](https://app.netlify.com) y haz clic en **"Add new site" → "Import an existing project"**.
+2. Conecta tu cuenta de GitHub y selecciona el repositorio `nueva-raiz`.
+3. En la configuración del sitio usa estos valores:
+
+   - **Build command:** `npm run build`
+   - **Publish directory:** `.next`
+   - **Branch to deploy:** `main`
+
+4. En la sección **"Build settings" > "Build plugins"**, Netlify debería detectar automáticamente el plugin `@netlify/plugin-nextjs` (porque ya está en `netlify.toml`).
+
+5. Haz clic en **"Deploy site"**.
+
+Una vez desplegado, puedes conectar el dominio personalizado **toromudanzas.com** desde la sección **Domain settings**.
+
+### Archivo de configuración
+El proyecto ya incluye un `netlify.toml` con la configuración recomendada para Next.js.
 
 ## Notas importantes
 - Este proyecto es **totalmente separado** de toromovers.net.
