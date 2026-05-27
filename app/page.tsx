@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddressInput } from "../components/address-input";
 import { PHONE_DISPLAY, PHONE_TEL } from "../lib/contact";
 import {
@@ -25,6 +25,8 @@ const RESIDENCE_OPTIONS: ResidenceType[] = ["house", "apartment", "townhome", "s
 const FLOOR_OPTIONS: ApartmentFloor[] = ["1", "2", "3", "4", "5+"];
 
 export default function ToroMudanzasLanding() {
+  const STORAGE_KEY = "toromudanzas-quote-draft";
+
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -45,6 +47,24 @@ export default function ToroMudanzasLanding() {
     email: "",
     phone: "",
   });
+
+  // Load saved draft from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.form) setForm(parsed.form);
+        if (parsed.step) setStep(parsed.step);
+      } catch {}
+    }
+  }, []);
+
+  // Save draft to localStorage whenever form or step changes
+  useEffect(() => {
+    const draft = { form, step };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+  }, [form, step]);
 
   const update = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -159,6 +179,9 @@ export default function ToroMudanzasLanding() {
 
     setSubmitting(false);
     setSubmitted(true);
+
+    // Clear saved draft after successful submission
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   if (submitted) {
