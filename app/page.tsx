@@ -48,6 +48,10 @@ export default function ToroMudanzasLanding() {
 
   const update = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+    // Clear error when user starts typing in step 5
+    if (step === 5) {
+      setFormError(null);
+    }
   };
 
   const setResidence = (which: "from" | "to", value: ResidenceType) => {
@@ -96,9 +100,25 @@ export default function ToroMudanzasLanding() {
   };
 
   const handleSubmit = async () => {
+    // Specific validation for step 5 (contact info)
+    if (step === 5) {
+      if (!form.firstName.trim() || !form.lastName.trim()) {
+        setFormError("Por favor ingresa tu nombre y apellido.");
+        return;
+      }
+      if (!form.email.trim() || !form.email.includes("@")) {
+        setFormError("Por favor ingresa un email válido.");
+        return;
+      }
+      if (!form.phone.trim() || form.phone.trim().length < 7) {
+        setFormError("Por favor ingresa un teléfono válido.");
+        return;
+      }
+    }
+
     const parsed = QuoteSchema.safeParse(form);
     if (!parsed.success) {
-      setFormError("Por favor completa todos los campos obligatorios.");
+      setFormError("Por favor completa todos los campos obligatorios (incluyendo fecha y direcciones).");
       return;
     }
 
