@@ -125,20 +125,14 @@ export default function ToroMudanzasLanding() {
         {/* Stronger gradient overlay for better readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/60 to-black/80" />
 
-        <div className="relative z-10 max-w-4xl px-5 text-center pt-10 pb-16">
-          <div className="inline-flex items-center gap-2 bg-white/95 text-[#0A0A0A] px-4 py-1.5 rounded-full text-xs tracking-[1.5px] font-semibold mb-6 shadow-sm">
+        <div className="relative z-10 max-w-4xl px-5 text-center pt-8 pb-12">
+          <div className="inline-flex items-center gap-2 bg-white/95 text-[#0A0A0A] px-4 py-1.5 rounded-full text-xs tracking-[1.5px] font-semibold mb-5 shadow-sm">
             COMPAÑÍA HISPANA · 100% EN ESPAÑOL
           </div>
 
-          <h1 className="text-5xl sm:text-[56px] leading-[1.05] tracking-[-1.8px] font-semibold mb-6 [text-shadow:_0_2px_12px_rgb(0,0,0,0.45)]">
-            Compañía de Mudanzas en Florida Central<br />
-            De familia hispana para la comunidad latina<br />
-            100% en Español
+          <h1 className="text-4xl sm:text-5xl leading-[1.1] tracking-[-1.5px] font-semibold mb-5 [text-shadow:_0_2px_12px_rgb(0,0,0,0.45)]">
+            Compañía de Mudanzas en Florida Central
           </h1>
-
-          <p className="max-w-[640px] mx-auto text-lg sm:text-xl text-white/95 mb-8">
-            Mudanzas hispanas en Orlando, Kissimmee, Lake Nona, Clermont y toda Florida Central. Servicio completo y confiable para familias latinas.
-          </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
@@ -155,8 +149,8 @@ export default function ToroMudanzasLanding() {
             </a>
           </div>
 
-          <p className="text-xs text-white/80 mt-5 tracking-wide">
-            Mínimo 2 horas · Sin recargos por gasolina ni escaleras · Agenda esta misma semana
+          <p className="text-xs text-white/70 mt-4 tracking-wide">
+            Mínimo 2 horas · Sin recargos por gasolina ni escaleras
           </p>
         </div>
       </section>
