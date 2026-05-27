@@ -28,6 +28,7 @@ export default function ToroMudanzasLanding() {
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     helpType: "labor-truck" as HelpType,
@@ -59,16 +60,23 @@ export default function ToroMudanzasLanding() {
     }
   };
 
-  const next = () => setStep((s) => Math.min(s + 1, 5));
-  const back = () => setStep((s) => Math.max(s - 1, 1));
+  const next = () => {
+    setFormError(null);
+    setStep((s) => Math.min(s + 1, 5));
+  };
+  const back = () => {
+    setFormError(null);
+    setStep((s) => Math.max(s - 1, 1));
+  };
 
   const handleSubmit = async () => {
     const parsed = QuoteSchema.safeParse(form);
     if (!parsed.success) {
-      alert("Por favor completa todos los campos obligatorios.");
+      setFormError("Por favor completa todos los campos obligatorios.");
       return;
     }
 
+    setFormError(null);
     setSubmitting(true);
 
     // Track conversion events
@@ -498,6 +506,13 @@ export default function ToroMudanzasLanding() {
                     {submitting ? "Enviando..." : "Enviar mi solicitud"}
                   </button>
                 </div>
+
+                {formError && (
+                  <p className="mt-4 text-center text-sm text-red-400 font-medium">
+                    {formError}
+                  </p>
+                )}
+
                 <p className="text-center text-xs text-[#6B6B6B] mt-6">Respondemos el mismo día. Para algo urgente, llama.</p>
               </div>
             )}
