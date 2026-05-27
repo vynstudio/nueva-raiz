@@ -1,5 +1,12 @@
 "use client";
 
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 import { useState } from "react";
 import { AddressInput } from "../components/address-input";
 import { PHONE_DISPLAY, PHONE_TEL } from "../lib/contact";
